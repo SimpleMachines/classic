@@ -1,0 +1,950 @@
+/* Normal, standard links. */
+a:link, a:visited
+{
+	color: #005177;
+	background: transparent;
+	text-decoration: none;
+}
+a:hover
+{
+	color: #cc3333;
+	background: transparent;
+	text-decoration: none;
+}
+
+/* Navigation links - for the link tree. */
+.nav, .nav:link, .nav:visited
+{
+	color: #000000;
+	background: transparent;
+	text-decoration: none;
+}
+a.nav:hover
+{
+	font-weight: bold;
+	color: #cc3333;
+	background: transparent;
+	text-decoration: underline;
+}
+
+/* Tables should show empty cells too. */
+table
+{
+	empty-cells: show;
+}
+
+/* By default (td, body..) use Verdana in black. */
+body, td, th
+{
+	color: #000000;
+	font-size: small;
+	font-family: verdana, sans-serif;
+}
+/* This division wraps the entire forum when a forum width is set. */
+div#wrapper
+{
+	margin: 0 auto;
+	min-width: 780px;
+	max-width: 2300px;	
+}
+div.cat_bar
+{
+	height: 20px;
+	overflow: hidden;
+	padding-top: -10px;
+}
+div.titlebg
+{
+	padding-left: 9px;
+	height: 25px;
+	padding-top: 3px;
+}
+/* Input boxes - just a bit smaller than normal so they align well. */
+input, textarea
+{
+	font-size: 9pt;
+	color: #000000;
+	font-family: verdana, sans-serif;
+	background: #afc6db;
+}
+
+/* Checkboxes/radios shouldn't have a background color. */
+input.check, input.input_radio, input.input_check
+{
+	background: transparent;
+}
+/*need to add a menu dropdown*/
+#admin_menu
+{
+	min-height: 2em;
+	padding-left: 0;
+	padding-top: 10px;
+}
+.dropmenu, .dropmenu ul
+{
+	list-style: none;
+	line-height: 1em;
+	padding: 0;
+	margin: 0;
+}
+.dropmenu
+{
+	padding: 0 0.5em;
+}
+.dropmenu a
+{
+	display: block;
+	color: #000;
+	text-decoration: none;
+}
+.dropmenu a span
+{
+	display: block;
+	padding: 0 0 0 5px;
+	font-size: 0.9em;
+}
+/* the background's first level only */
+.dropmenu li a.firstlevel
+{
+	margin-right: 8px;
+}
+.dropmenu li a.firstlevel span.firstlevel
+{
+	display: block;
+	position: relative;
+	left: -5px;
+	padding-left: 5px;
+	height: 22px;
+	line-height: 19px;
+	white-space: pre;
+}
+.dropmenu li
+{
+	float: left;
+	padding: 0;
+	margin: 0;
+	position: relative;
+}
+.dropmenu li ul
+{
+	z-index: 90;
+	display: none;
+	position: absolute;
+	width: 19.2em;
+	font-weight: normal;
+	border-bottom: 1px solid #999;
+	background: url(../images/theme/menu_gfx.png) 0 -130px no-repeat;
+	padding: 7px 0 0 0;
+}
+.dropmenu li li
+{
+	width: 19em;
+	margin: 0;
+	border-left: 1px solid #999;
+	border-right: 1px solid #999;
+}
+.dropmenu li li a span
+{
+	display: block;
+	padding: 8px;
+}
+.dropmenu li ul ul
+{
+	margin: -1.8em 0 0 13em;
+}
+
+/* the active button */
+.dropmenu li a.active
+{
+	background: url(../images/theme/menu_gfx.png) no-repeat 100% 0;
+	color: #fff;
+	font-weight: bold;
+}
+.dropmenu li a.active span.firstlevel
+{
+	background: url(../images/theme/menu_gfx.png) no-repeat 0 0;
+}
+/* the hover effects */
+.dropmenu li a.firstlevel:hover, .dropmenu li:hover a.firstlevel
+{
+	background: url(../images/theme/menu_gfx.png) no-repeat 100% -30px;
+	color: #fff;
+	cursor: pointer;
+	text-decoration: none;
+}
+.dropmenu li a.firstlevel:hover span.firstlevel, .dropmenu li:hover a.firstlevel span.firstlevel
+{
+	background: url(../images/theme/menu_gfx.png) no-repeat 0 -30px;
+}
+/* the hover effects on level2 and 3 */
+.dropmenu li li a:hover, .dropmenu li li:hover>a
+{
+	background: #d4dbe4;
+	color: #000;
+	text-decoration: none;
+}
+.dropmenu li:hover ul ul, .dropmenu li:hover ul ul ul
+{
+	top: -999em;
+}
+.dropmenu li li:hover ul
+{
+	top: auto;
+}
+.dropmenu li:hover ul
+{
+	display: block;
+}
+.dropmenu li li.additional_items
+{
+	background-color: #fff;
+}
+/* The dropdown menu toggle image */
+#menu_toggle
+{
+	float: right;
+	margin-right: 10px;
+	padding-top: 3px;
+}
+#menu_toggle span
+{
+	position: relative;
+	right: 5000px;
+}
+
+/* The quick buttons */
+div.quickbuttons_wrap
+{
+	padding: 0.2em 0;
+	width: 100%;
+	float: left;
+}
+
+ul.quickbuttons
+{
+	margin: 0.9em 11px 0 0;
+	clear: right;
+	float: right;
+	text-align: right;
+	font: bold 0.85em arial, sans-serif;
+}
+ul.quickbuttons li
+{
+	float: left;
+	display: inline;
+	margin: 0 0 0 11px;
+}
+ul.quickbuttons li a
+{
+	padding: 0 0 0 20px;
+	display: block;
+	height: 20px;
+	line-height: 18px;
+	float: left;
+}
+ul.quickbuttons a:hover
+{
+	color: #a70;
+}
+ul.quickbuttons li.quote_button
+{
+	background: url(../images/theme/quickbuttons.png) no-repeat 0 0;
+}
+ul.quickbuttons li.remove_button
+{
+	background: url(../images/theme/quickbuttons.png) no-repeat 0 -30px;
+}
+ul.quickbuttons li.modify_button
+{
+	background: url(../images/theme/quickbuttons.png) no-repeat 0 -60px;
+}
+ul.quickbuttons li.approve_button
+{
+	background: url(../images/theme/quickbuttons.png) no-repeat 0 -90px;
+}
+ul.quickbuttons li.restore_button
+{
+	background: url(../images/theme/quickbuttons.png) no-repeat 0 -120px;
+}
+ul.quickbuttons li.split_button
+{
+	background: url(../images/theme/quickbuttons.png) no-repeat 0 -150px;
+}
+ul.quickbuttons li.reply_button
+{
+	background: url(../images/theme/quickbuttons.png) no-repeat 0 -180px;
+}
+ul.quickbuttons li.reply_all_button
+{
+	background: url(../images/theme/quickbuttons.png) no-repeat 0 -180px;
+}
+ul.quickbuttons li.notify_button
+{
+	background: url(../images/theme/quickbuttons.png) no-repeat 0 -210px;
+}
+ul.quickbuttons li.inline_mod_check
+{
+	margin: 0 0 0 5px;
+}
+/* The main content area.
+------------------------------------------------------- */
+.content
+{
+	padding: 0.5em 1.2em;
+	margin: 0;
+	border: none;
+}
+.content p
+{
+	margin: 0 0 0.5em 0;
+}
+.core_posts
+{
+	margin-bottom: 3px;
+}
+/* Styles for sidebar menus.
+------------------------------------------------------- */
+.left_admmenu, .left_admmenu ul, .left_admmenu li
+{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+#left_admsection
+{
+	width: 160px;
+	float: left;
+	padding-right: 10px;
+}
+.adm_section h4.titlebg
+{
+	font-size: 95%;
+	margin-bottom: 5px;
+}
+#adm_container
+{
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 5px;
+}
+.left_admmenu li
+{
+	padding: 0 0 0 0.5em;
+}
+.left_admmenu
+{
+	margin-bottom: 0.5em;
+}
+#main_admsection
+{
+	margin-left: 172px;
+	overflow: hidden;
+}
+#credits p
+{
+	padding: 0;
+	font-style: italic;
+	margin: 0;
+}
+/* Selects are a bit smaller, because it makes them look even better 8). */
+select
+{
+	font-size: 8pt;
+	font-weight: normal;
+	color: #000000;
+	font-family: verdana, sans-serif;
+	background: #afc6db;
+}
+
+/* Define strong as bold, and em as italics */
+strong
+{
+	font-weight: bold;
+}
+
+em
+{
+	font-style: italic;
+}
+
+/* Standard horizontal rule.. */
+hr
+{
+	color: #6394bd;
+	background: transparent;
+}
+/* A more colorful hr.. */
+.hrcolor
+{
+	height: 1px;
+	border: 0;
+	color: #6394bd;
+	background: #6394bd;
+}
+
+/* A quote, perhaps from another post. */
+blockquote
+{
+	color: #000000;
+	background: #dee7ef;
+	border: 1px solid black;
+	margin: 1px;
+	padding: 1px;
+	font-size: x-small;
+}
+
+/* A code block - maybe even PHP ;). */
+code
+{
+	color: #000000;
+	background: #cccccc;
+	display: block;
+	border: 1px solid black;
+	margin: 1px auto 1px auto;
+	padding: 1px;
+	font-size: x-small;
+	line-height: 1.3em;
+	overflow: auto;
+	width: 99%;
+	white-space: nowrap;
+}
+
+/* The "Quote:" and "Code:" header parts... */
+.quoteheader, .codeheader
+{
+	color: #000000;
+	text-decoration: none;
+	font-style: normal;
+	font-weight: bold;
+	font-size: x-small;
+	line-height: 1.2em;
+}
+
+/* For links to change the code stuff... */
+.codeoperation
+{
+	font-weight: normal;
+}
+
+/* Generally, those [?] icons. */
+.help
+{
+	cursor: help;
+}
+
+/* /me uses this a lot. */
+.meaction
+{
+	color: red;
+	background: transparent;
+}
+
+/* The main post box - this makes it as wide as possible. */
+.editor
+{
+	width: 100%;
+}
+.deditor
+{
+	width: 94%; 
+	margin-bottom: 10px;
+}
+/* Highlighted text - such as search results. */
+.highlight
+{
+	background: yellow;
+	font-weight: bold;
+	color: black;
+}
+
+/* A more discreet highlight color, for selected membergroups etc. */
+.highlight2
+{
+	background: #B3F4B0;
+	color: black;
+}
+
+/* Alternating backgrounds... */
+.windowbg
+{
+	color: #000000;
+	background: #afc6db;
+}
+.windowbg2
+{
+	color: #000000;
+	background: #f8f8f8;
+}
+
+/* Color for background of posts requiring approval */
+.approvebg
+{
+	color: #000000;
+	background: #F6E0D4;
+}
+/* Color for background of *topics* requiring approval */
+.approvetbg
+{
+	color: #000000;
+	background: #E4A17C;
+}
+
+/* Titles - such as table headers. */
+.titlebg, tr.titlebg th, tr.titlebg td, .titlebg a:link, .titlebg a:visited, .titlebg2, tr.titlebg2 th, tr.titlebg2 td, .titlebg2 a:link, .titlebg2 a:visited
+{
+	font-weight: bold;
+	font-style: normal;
+	color: #ffffff;
+	background: #6e94b7;
+}
+.titlebg a:hover, .titlebg2 a:hover
+{
+	color: #ffffff;
+	text-decoration: underline;
+}
+
+/* The category headers, page indexes, and such things. */
+.catbg, .catbg3
+{
+	font-weight: bold;
+	background: #afc6db url(../images/catbg.gif);
+	color: #000000;
+}
+
+/* The borders around things. */
+.bordercolor
+{
+	background: #6394bd;
+}
+.tborder
+{
+	border: 1px solid #6394bd;
+}
+.floatright
+{
+	float: right;
+}
+.floatleft
+{
+	float: left;
+}
+/* Default font sizes. */
+.smalltext
+{
+	font-size: x-small;
+}
+.normaltext
+{
+	font-size: small;
+}
+.largetext
+{
+	font-size: large;
+}
+.centertext
+{
+	margin: 0 auto;
+	text-align: center;
+}
+.righttext
+{
+	margin-left: auto;
+	margin-right: 0;
+	text-align: right;
+}
+.lefttext
+{
+	margin-left: 0;
+	margin-right: auto;
+	text-align: left;
+}
+/* No image should have a border when linked */
+a img{
+	border: 0;
+}
+
+/* Calendar colors for birthdays, events and holidays */
+.birthday
+{
+	color: #920AC4;
+}
+
+.event
+{
+	color: #078907;
+}
+
+.holiday
+{
+	color: #000080;
+}
+
+/* Colors for warnings */
+.warn_mute
+{
+	color: red;
+}
+
+.warn_moderate
+{
+	color: #FFA500;
+}
+
+.warn_watch
+{
+	color: green;
+}
+
+/* The AJAX notifier */
+#ajax_in_progress
+{
+	background: #32CD32;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	font-size: 18pt;
+	padding: 3px;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+/* Styling for BBC tags */
+.bbc_color a
+{
+	color: inherit;
+}
+
+.bbc_img
+{
+	border: 0;
+}
+
+.bbc_list
+{
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.bbc_size
+{
+	line-height: 1.3em;
+}
+
+.bbc_table
+{
+	font: inherit;
+	color: inherit;
+}
+
+.bbc_table td
+{
+	font: inherit;
+	color: inherit;
+	vertical-align: top;
+}
+
+.bbc_u
+{
+	text-decoration: underline;
+}
+/* styling the admin section */
+ol.search_results
+{
+	margin-top: 0;
+	padding-top: 0;
+}
+ol.search_results li
+{
+	padding-top: 5px;
+}
+
+.button_strip_submit
+{
+	background: transparent;
+	color: white;
+	text-transform: uppercase;
+	vertical-align: top;
+	text-decoration: none;
+	font-size: 9px;
+	font-family: tahoma, sans-serif;
+	border: 0;
+}
+
+.button_strip_submit:hover
+{
+	color: #e0e0ff;
+}
+
+.openid_login
+{
+	background: white url(../images/openid.gif) no-repeat;
+	padding-left: 18px;
+}
+
+/* new features settings screen */
+.features
+{
+	clear: both;
+	border-bottom: solid 1px #e0e0e0;
+}
+.features_image
+{
+	float: left;
+	margin: 1em 2em 0.5em 1em;
+}
+.features_switch
+{
+	margin: 0.2em 1em 1em 1em;
+	float: right;
+}
+.features h4
+{
+	padding: 2em 0 0.5em 0.5em;
+	margin: 0;
+	font-size: 1.1em;
+}
+.features p
+{
+	padding: 0 1em 1em 1em;
+	margin: 0;
+}
+/* Posting Time */
+ul.post_options
+{
+	margin: 0 0 0 1em;
+	padding: 0;
+	list-style: none;
+	overflow: hidden;
+}
+ul.post_options li
+{
+	margin: 0.2em 0;
+	width: 49%;
+	float: left;
+}
+#recent
+{
+	clear: both;
+}
+.list_posts
+{
+	border-top: 2px solid #b3b3bf;
+	padding-top: 12px;
+	margin-top: 6px;
+	overflow: auto;
+}
+/* These are for the auto suggest floating div type thing. */
+.auto_suggest_div
+{
+	border: 1px solid black;
+	position: absolute;
+	visibility: hidden;
+}
+
+/* An auto suggest item */
+.auto_suggest_item
+{
+	background: #DDDDDD;
+}
+
+/* hovered auto suggest item */
+.auto_suggest_item_hover
+{
+	background: #888888;
+	cursor: pointer;
+	color: #EEEEEE;
+}
+
+/* Sometimes there will be an error when you post */
+.error
+{
+	color: red;
+}
+
+/* Messages that somehow need to attract the attention. */
+.alert
+{
+	color: red;
+}
+
+/* Error messages */
+.errorbox
+{
+	padding: 1em;
+	border: 1px solid #cc3344;
+	color: black;
+	background: #ffe4e9;
+	margin-bottom: 1em;
+}
+.errorbox h3
+{
+	padding: 0;
+	margin: 0;
+	font-size: 1.1em;
+	text-decoration: underline;
+}
+.errorbox p
+{
+	margin: 1em 0 0 0;
+}
+.errorbox p.alert
+{
+	padding: 0;
+	margin: 0;
+	float: left;
+	width: 1em;
+	font-size: 1.5em;
+}
+/* a quick reset list class. */
+ul.reset, ul.reset li
+{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+/* All the signatures used in the forum.  If your forum users use Mozilla, Opera, or Safari, you might add max-height here ;). */
+.signature
+{
+	clear: right;
+	padding: 1em 0 3px 0;
+	border-top: solid 1px #6394bd;
+	width: 100%;
+	line-height: 1.3em;
+	font-size: 0.85em;
+}
+.custom_fields_above_signature
+{
+	clear: right;
+	padding: 1em 0 3px 0;
+	border-top: solid 1px #6394bd;
+	width: 100%;
+	line-height: 1.3em;
+	font-size: 0.85em;
+}
+/*These classes are to remove the hardcoded styles.*/
+
+/* This is an important tag for the Classic Theme */
+.white
+{
+	background: white;
+}
+/* Menu Area needs to be exact */
+.menuarea
+{
+	border-width: 1px 0 0 0; 
+	font-size: smaller;
+}
+/* We all like news */
+.newsarea, .sloganarea
+{
+	border-width: 1px 0 0 0;
+	padding-left: 1ex;
+}
+/* and to collapse things */
+.collapse
+{
+	padding: 5px 5px 5px 5px;
+	margin: 0 1ex; 
+	display: none;
+}
+/* Just when red is really needed */
+.red
+{
+	color: #FF0000;
+}
+/* Login in on the BoardIndex.template */
+.login_bindex
+{
+	margin: 0;
+}
+/* This is obvious its when there is no bottom border needed or there needs to be a border control*/
+.borderbottom
+{
+	border-bottom: 0;
+}
+.borderwidth
+{
+	border-width: 1px 1px 0 1px;
+}
+.borderwidth2
+{
+	border-width: 0 1px 1px 1px;
+}
+/* This is used a few times in Display.template.php */
+.fontsmall
+{
+	font-size: smaller;
+}
+/* Some area's need this so we have a new class for it */
+.displaynone
+{
+	display: none;
+}
+/* Just so the pointer cursor will be used */
+.pointer
+{
+	cursor: pointer;
+}
+/* Just random padding needed */
+.polltoppadding
+{
+	padding-top: 2ex;
+}
+.paddingtop
+{
+	padding-top: 4px;
+}
+.padding4
+{
+	padding: 4px;
+}
+.pollicons
+{
+	padding-left: 6px;
+}
+.paddingleft15
+{
+	padding-left: 15px;
+}
+.messagepadding
+{
+	padding: 1px 1px 0 1px;
+}
+.breadcrumbpadding
+{
+	padding-top: 1ex;
+}
+/* Margins are sometimes not needed */
+.nomargin
+{
+	margin: 0px;
+}
+/* Need to define some small text area's */
+.txtarea
+{
+	width: 95%; 
+	height: 100px;
+}
+/* A random width tag */
+.w90
+{
+	width: 90%;
+}
+.w95
+{
+	width: 95%;
+}
+/* To Boldly go where no-one has boldened before */
+.bold
+{
+	font-weight: bold;
+}
+.pc
+{
+	margin: 0 auto;
+}
+.clear
+{
+	clear: both;
+}
