@@ -1,0 +1,127 @@
+body
+{
+	background-color: #FFFFFF;
+	margin: 0;
+	padding: 10px;
+}
+#head
+{
+	overflow: hidden;
+	border: 1px solid #6394BD;
+	background-color: #F8F8F8;
+}
+
+#logo_title 
+{
+	overflow: hidden;
+}
+
+.user
+{
+	float: right;
+	padding: 5px 10px;
+}
+
+#main_menu
+{
+	text-align: center;
+	padding: 3px 0;
+	border-top: 1px solid #6394BD;
+	border-bottom: 1px solid #6394BD;
+	width: 100%;
+	float: none;
+}
+
+.news
+{
+	padding: 7px;
+}
+
+.news span
+{
+	font-weight: bold;
+}
+
+.news p
+{
+	display: inline;
+}
+
+/* This is the linktree nav */
+.nav
+{
+	padding-bottom: 5px;
+}
+
+/* the div that surrounds the main content */
+#content
+{
+	border: 1px solid #6394BD;
+	padding: 10px;
+	margin: 15px 0;
+}
+
+#foot
+{
+	border: 1px solid #6394BD;
+	padding: 15px;
+	text-align: center;
+}
+
+#foot ul li
+{
+	display: inline;
+	font-size: 0.8em;
+}
+
+#foot ul li.copy_right
+{
+	display: block;
+	font-size: 0.9em;
+}
+
+.table_border
+{
+	background-color: #6394BD;
+}
+
+.windowbg
+{
+	background-color: #AFC6DB;
+}
+
+#forumposts div.windowbg, #forumposts div.windowbg2
+{
+	border-left: 1px solid #6394BD;
+	border-bottom: 1px solid #6394BD;
+	border-right: 1px solid #6394BD;
+}
+
+#forumposts div.cat_bar, #forumposts h3.catbg
+{
+	background: none;
+	background-color: #6E94B7;
+}
+
+#quickreplybox  span a{
+	color: #005177;
+}
+
+#quickreplybox div.cat_bar {
+	border: 1px solid #6394BD;
+}
+
+#quickReplyOptions span {
+	background-color: #AFC6DB;
+}
+
+#quickReplyOptions div {
+	background-color: #AFC6DB;
+}
+
+#forumposts div.cat_bar h3 {
+	color: #FFFFFF;
+}
+#recent div.windowbg2 {
+	border: 1px solid #C5C5C5;
+}

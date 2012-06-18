@@ -66,6 +66,11 @@ function template_options()
 			'default' => true,
 		),
 		array(
+			'id' => 'posts_apply_ignore_list',
+			'label' => $txt['posts_apply_ignore_list'],
+			'default' => false,
+		),
+		array(
 			'id' => 'wysiwyg_default',
 			'label' => $txt['wysiwyg_default'],
 			'default' => false,
@@ -159,12 +164,6 @@ function template_settings()
 			'type' => 'text',
 		),
 		array(
-			'id' => 'site_slogan',
-			'label' => $txt['site_slogan'],
-			'description' => $txt['site_slogan_desc'],
-			'type' => 'text',
-		),
-		array(
 			'id' => 'smiley_sets_default',
 			'label' => $txt['smileys_default_set_for_theme'],
 			'options' => $context['smiley_sets'],
@@ -179,9 +178,8 @@ function template_settings()
 		),
 	'',
 		array(
-			'id' => 'linktree_inline',
-			'label' => $txt['enable_inline_links'],
-			'description' => $txt['inline_desc'],
+			'id' => 'linktree_link',
+			'label' => $txt['current_pos_text_img'],
 		),
 		array(
 			'id' => 'show_mark_read',
@@ -194,10 +192,6 @@ function template_settings()
 		array(
 			'id' => 'enable_news',
 			'label' => $txt['enable_random_news'],
-		),
-		array(
-			'id' => 'use_image_buttons',
-			'label' => $txt['admin_image_text'],
 		),
 	'',
 		array(
@@ -222,10 +216,6 @@ function template_settings()
 		array(
 			'id' => 'show_latest_member',
 			'label' => $txt['latest_members'],
-		),
-		array(
-			'id' => 'show_member_bar',
-			'label' => $txt['member_list_bar'],
 		),
 		array(
 			'id' => 'show_group_key',
