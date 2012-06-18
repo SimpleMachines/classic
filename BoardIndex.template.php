@@ -14,155 +14,174 @@ function template_main()
 {
 	global $context, $settings, $options, $txt, $scripturl, $modSettings;
 
-	// Show some statistics next to the link tree if stat info is off.
-	echo '
-<table width="100%" cellpadding="3" cellspacing="0">
-	<tr>
-		<td align="right">';
+	// Show some statistics if stat info is off.
 	if (!$settings['show_stats_index'])
 		echo '
-			', $txt['members'], ': ', $context['common_stats']['total_members'], ' &nbsp;&#8226;&nbsp; ', $txt['posts_made'], ': ', $context['common_stats']['total_posts'], ' &nbsp;&#8226;&nbsp; ', $txt['topics'], ': ', $context['common_stats']['total_topics'], '
-			', ($settings['show_latest_member'] ? '<br />' . $txt['welcome_member'] . ' <strong>' . $context['common_stats']['latest_member']['link'] . '</strong>' . $txt['newest_member'] : '');
-	echo '
-		</td>
-	</tr>
-</table>';
+	<div id="index_common_stats">
+		', $txt['members'], ': ', $context['common_stats']['total_members'], ' &nbsp;&#8226;&nbsp; ', $txt['posts_made'], ': ', $context['common_stats']['total_posts'], ' &nbsp;&#8226;&nbsp; ', $txt['topics'], ': ', $context['common_stats']['total_topics'], '
+		', ($settings['show_latest_member'] ? ' ' . $txt['welcome_member'] . ' <strong>' . $context['common_stats']['latest_member']['link'] . '</strong>' . $txt['newest_member'] : '') , '
+	</div>';
 
 	// Show the news fader?  (assuming there are things to show...)
 	if ($settings['show_newsfader'] && !empty($context['fader_news_lines']))
 	{
 		echo '
-<div class="tborder borderbottom">
-	<div class="titlebg  class="collapse" align="center"><img id="newsupshrink" src="', $settings['images_url'], '/collapse.gif" alt="*" title="', $txt['upshrink_description'], '" align="bottom"/>', $txt['news'], '</div>
-</div>
-<table border="0" width="100%" cellspacing="0" cellpadding="0" class="tborder" id="smfNewsFaderContainer">
-	<tr>
-		<td valign="middle" align="center" height="60px">';
+	<div id="newsfader">
+		<div class="cat_bar">
+			<h3 class="catbg">
+				<img id="newsupshrink" src="', $settings['images_url'], '/collapse.gif" alt="*" title="', $txt['upshrink_description'], '" align="bottom" style="display: none;" />
+				', $txt['news'], '
+			</h3>
+		</div>
+		<ul class="reset" id="smfFadeScroller"', empty($options['collapse_news_fader']) ? '' : ' style="display: none;"', '>';
 
-		// Prepare all the javascript settings.
-		echo '
-			<div id="smfNewsFader">
-				<div id="smfFadeScroller"><strong>', $context['news_lines'][0], '</strong></div>
-			</div>
-		</td>
-	</tr>
-</table>
-<script type="text/javascript" src="', $settings['default_theme_url'], '/scripts/fader.js"></script>
-<script type="text/javascript"><!-- // --><![CDATA[
+			foreach ($context['news_lines'] as $news)
+				echo '
+			<li>', $news, '</li>';
 
-	// Create a news fader object.
-	var oNewsFader = new smf_NewsFader({
-		sSelf: \'oNewsFader\',
-		sFaderControlId: \'smfFadeScroller\',
-		aFaderItems: [
-			"',
-			implode('",
-			"', $context['fader_news_lines']), '"],
-		sItemTemplate: ', JavaScriptEscape('<strong>%1$s</strong>'), ',
-		iFadeDelay: ', empty($settings['newsfader_time']) ? 5000 : $settings['newsfader_time'], '
-	});
+	echo '
+		</ul>
+	</div>
+	<script type="text/javascript" src="', $settings['default_theme_url'], '/scripts/fader.js"></script>
+	<script type="text/javascript"><!-- // --><![CDATA[
 
-	// Create the news fader toggle.
-	var smfNewsFadeToggle = new smc_Toggle({
-		bToggleEnabled: true,
-		bCurrentlyCollapsed: ', empty($options['collapse_news_fader']) ? 'false' : 'true', ',
-		aSwappableContainers: [
-			\'smfNewsFaderContainer\'
-		],
-		aSwapImages: [
-			{
-				sId: \'newsupshrink\',
-				srcExpanded: smf_images_url + \'/collapse.gif\',
-				altExpanded: ', JavaScriptEscape($txt['upshrink_description']), ',
-				srcCollapsed: smf_images_url + \'/expand.gif\',
-				altCollapsed: ', JavaScriptEscape($txt['upshrink_description']), '
+		// Create a news fader object.
+		var oNewsFader = new smf_NewsFader({
+			sSelf: \'oNewsFader\',
+			sFaderControlId: \'smfFadeScroller\',
+			sItemTemplate: ', JavaScriptEscape('<strong>%1$s</strong>'), ',
+			iFadeDelay: ', empty($settings['newsfader_time']) ? 5000 : $settings['newsfader_time'], '
+		});
+
+		// Create the news fader toggle.
+		var smfNewsFadeToggle = new smc_Toggle({
+			bToggleEnabled: true,
+			bCurrentlyCollapsed: ', empty($options['collapse_news_fader']) ? 'false' : 'true', ',
+			aSwappableContainers: [
+				\'smfFadeScroller\'
+			],
+			aSwapImages: [
+				{
+					sId: \'newsupshrink\',
+					srcExpanded: smf_images_url + \'/collapse.gif\',
+					altExpanded: ', JavaScriptEscape($txt['upshrink_description']), ',
+					srcCollapsed: smf_images_url + \'/expand.gif\',
+					altCollapsed: ', JavaScriptEscape($txt['upshrink_description']), '
+				}
+			],
+			oThemeOptions: {
+				bUseThemeSettings: ', $context['user']['is_guest'] ? 'false' : 'true', ',
+				sOptionName: \'collapse_news_fader\',
+				sSessionVar: ', JavaScriptEscape($context['session_var']), ',
+				sSessionId: ', JavaScriptEscape($context['session_id']), '
+			},
+			oCookieOptions: {
+				bUseCookie: ', $context['user']['is_guest'] ? 'true' : 'false', ',
+				sCookieName: \'newsupshrink\'
 			}
-		],
-		oThemeOptions: {
-			bUseThemeSettings: ', $context['user']['is_guest'] ? 'false' : 'true', ',
-			sOptionName: \'collapse_news_fader\',
-			sSessionVar: ', JavaScriptEscape($context['session_var']), ',
-			sSessionId: ', JavaScriptEscape($context['session_id']), '
-		},
-		oCookieOptions: {
-			bUseCookie: ', $context['user']['is_guest'] ? 'true' : 'false', ',
-			sCookieName: \'newsupshrink\'
-		}
-	});
-// ]]></script>
-
-<br />';
+		});
+	// ]]></script>';
 	}
 
+	echo '
+	<div id="boardindex_table">';
+	
 	// Show the "Board name      Topics  Posts    Last Post" header.
 	echo '
-<table border="0" width="100%" cellspacing="1" cellpadding="5" class="bordercolor">
-	<tr class="titlebg">
-		<td colspan="2">', $txt['board_name'], '</td>
-		<td width="6%" align="center">', $txt['board_topics'], '</td>
-		<td width="6%" align="center">', $txt['posts'], '</td>
-		<td width="22%" align="center">', $txt['last_post'], '</td>
-	</tr>';
-
+		<table class="table_list table_border" cellspacing="1" cellpadding="5">
+			<thead>
+				<tr class="titlebg">
+					<th class="lefttext" colspan="2">', $txt['board_name'], '</th>
+					<th class="stats">', $txt['board_topics'], '</th>
+					<th class="stats">', $txt['posts'], '</th>
+					<th>', $txt['last_post'], '</th>
+				</tr>
+			</thead>';
+	
 	/* Each category in categories is made up of:
-		id, href, link, name, is_collapsed (is it collapsed?), can_collapse (is it okay if it is?),
-		new (is it new?), collapse_href (href to collapse/expand), collapse_image (up/down iamge),
-		and boards. (see below.) */
+	id, href, link, name, is_collapsed (is it collapsed?), can_collapse (is it okay if it is?),
+	new (is it new?), collapse_href (href to collapse/expand), collapse_image (up/down image),
+	and boards. (see below.) */
 	foreach ($context['categories'] as $category)
 	{
 		// If theres no parent boards we can see, avoid showing an empty category (unless its collapsed)
 		if (empty($category['boards']) && !$category['is_collapsed'])
 			continue;
 
-		// Show the category's name, and let them collapse it... if they feel like it.
 		echo '
-	<tr>
-		<td colspan="5" class="catbg" height="18">';
+			<tbody class="header" id="category_', $category['id'], '">
+				<tr>
+					<td colspan="5">
+						<div class="cat_bar">
+							<h3 class="catbg">';
 
 		// If this category even can collapse, show a link to collapse it.
 		if ($category['can_collapse'])
 			echo '
-			<a href="', $category['collapse_href'], '" rel="nofollow">', $category['collapse_image'], '</a>';
+								<a class="collapse" href="', $category['collapse_href'], '">', $category['collapse_image'], '</a>';
+
+		if (!$context['user']['is_guest'] && !empty($category['show_unread']))
+			echo '
+								<a class="unreadlink" href="', $scripturl, '?action=unread;c=', $category['id'], '">', $txt['view_unread_category'], '</a>';
 
 		echo '
-			', $category['link'], '
-		</td>
-	</tr>';
+								', $category['link'], '
+							</h3>
+						</div>
+					</td>
+				</tr>
+			</tbody>';
 
-		// Only if it's NOT collapsed..
+		// Assuming the category hasn't been collapsed...
 		if (!$category['is_collapsed'])
 		{
+
+		echo '
+			<tbody class="content" id="category_', $category['id'], '_boards">';
 			/* Each board in each category's boards has:
-				new (is it new?), id, name, description, moderators (see below), link_moderators (just a list.),
-				children (see below.), link_children (easier to use.), children_new (are they new?),
-				topics (# of), posts (# of), link, href, and last_post. (see below.) */
+			new (is it new?), id, name, description, moderators (see below), link_moderators (just a list.),
+			children (see below.), link_children (easier to use.), children_new (are they new?),
+			topics (# of), posts (# of), link, href, and last_post. (see below.) */
 			foreach ($category['boards'] as $board)
 			{
 				echo '
-	<tr>
-		<td class="windowbg" width="6%" align="center" valign="top">';
+				<tr id="board_', $board['id'], '" class="windowbg2">
+					<td class="icon windowbg">
+						<a href="', ($board['is_redirect'] || $context['user']['is_guest'] ? $board['href'] : $scripturl . '?action=unread;board=' . $board['id'] . '.0;children'), '">';
 
 				// If the board or children is new, show an indicator.
 				if ($board['new'] || $board['children_new'])
-					echo '<img src="', $settings['images_url'], '/on', $board['new'] ? '' : '2', '.gif" alt="', $txt['new_posts'], '" title="', $txt['new_posts'], '" border="0" />';
+					echo '
+							<img src="', $settings['images_url'], '/', $context['theme_variant_url'], 'on', $board['new'] ? '' : '2', '.png" alt="', $txt['new_posts'], '" title="', $txt['new_posts'], '" />';
 				// Is it a redirection board?
 				elseif ($board['is_redirect'])
-					echo '<img src="', $settings['images_url'], '/redirect.gif" alt="*" title="*" border="0" />';
+					echo '
+							<img src="', $settings['images_url'], '/', $context['theme_variant_url'], 'redirect.png" alt="*" title="*" />';
 				// No new posts at all! The agony!!
 				else
-					echo '<img src="', $settings['images_url'], '/off.gif" alt="', $txt['old_posts'], '" title="', $txt['old_posts'], '" />';
+					echo '
+							<img src="', $settings['images_url'], '/', $context['theme_variant_url'], 'off.png" alt="', $txt['old_posts'], '" title="', $txt['old_posts'], '" />';
 
 				echo '
-		</td>
-		<td class="windowbg2" align="left" width="60%">
-			<a id="b', $board['id'], '"></a>
-			<strong>', $board['link'], '</strong><br />
-			', $board['description'];
+						</a>
+					</td>
+					<td class="info">
+						<a class="subject" href="', $board['href'], '" name="b', $board['id'], '">', $board['name'], '</a>';
+
+				// Has it outstanding posts for approval?
+				if ($board['can_approve_posts'] && ($board['unapproved_posts'] || $board['unapproved_topics']))
+					echo '
+						<a href="', $scripturl, '?action=moderate;area=postmod;sa=', ($board['unapproved_topics'] > 0 ? 'topics' : 'posts'), ';brd=', $board['id'], ';', $context['session_var'], '=', $context['session_id'], '" title="', sprintf($txt['unapproved_posts'], $board['unapproved_topics'], $board['unapproved_posts']), '" class="moderation_link">(!)</a>';
+
+				echo '
+
+						<p>', $board['description'] , '</p>';
 
 				// Show the "Moderators: ".  Each has name, href, link, and id. (but we're gonna use link_moderators.)
 				if (!empty($board['moderators']))
-					echo '<em class="smalltext"><br />
-			', count($board['moderators']) == 1 ? $txt['moderator'] : $txt['moderators'], ': ', implode(', ', $board['link_moderators']), '</em>';
+					echo '
+						<em class="smalltext">
+						', count($board['moderators']) == 1 ? $txt['moderator'] : $txt['moderators'], ': ', implode(', ', $board['link_moderators']), '</em>';
 
 				// Show the "Child Boards: ". (there's a link_children but we're going to bold the new ones...)
 				if (!empty($board['children']))
@@ -175,58 +194,98 @@ function template_main()
 						$children[] = $child['new'] ? '<strong>' . $child['link'] . '</strong>' : $child['link'];
 
 					echo '
-			<em class="smalltext"><br />
-			', $txt['parent_boards'], ': ', implode(', ', $children), '</em>';
+						<em class="smalltext"><br />
+						', $txt['parent_boards'], ': ', implode(', ', $children), '</em>';
 				}
 
-				echo '
-		</td>';
-
-	if (!$board['is_redirect'])
-		echo '
-		<td class="windowbg" valign="middle" align="center" width="6%">', comma_format($board['topics']), '</td>
-		<td class="windowbg" valign="middle" align="center" width="6%">', comma_format($board['posts']), '</td>';
-	else
-		echo '
-		<td class="windowbg" valign="middle" align="center" colspan="2" width="12%">', comma_format($board['posts']), ' ', $txt['redirects'], '</td>';
-
+				// Show some basic information about the number of posts, etc.
+					echo '
+					</td>';
+				if (!$board['is_redirect'])
+				{
+					echo '
+					<td class="stats windowbg">
+						<p>', comma_format($board['posts']), ' ', $board['is_redirect'] ? $txt['redirects'] : $txt['posts'], '</p>
+					</td>';
+					// Changed this section to separate posts/topics
+					echo '
+					<td class="stats windowbg">
+						<p>', $board['is_redirect'] ? '' : comma_format($board['topics']) . ' ' . $txt['board_topics'], '</p>
+					</td>';
+				}
+				else
+				{
+					echo '
+					<td class="stats windowbg" colspan="2">
+						<p>', comma_format($board['posts']), ' ', $txt['redirects'] , '</p>
+					</td>';
+				}
+					echo '
+					<td class="lastpost">';
+					
 				/* The board's and children's 'last_post's have:
-					time, timestamp (a number that represents the time.), id (of the post), topic (topic id.),
-					link, href, subject, start (where they should go for the first unread post.),
-					and member. (which has id, name, link, href, username in it.) */
+				time, timestamp (a number that represents the time.), id (of the post), topic (topic id.),
+				link, href, subject, start (where they should go for the first unread post.),
+				and member. (which has id, name, link, href, username in it.) */
+				if (!empty($board['last_post']['id']))
+					echo '
+						<p><strong>', $txt['last_post'], '</strong>  ', $txt['by'], ' ', $board['last_post']['member']['link'] , '<br />
+						', $txt['in'], ' ', $board['last_post']['link'], '<br />
+						', $txt['on'], ' ', $board['last_post']['time'], '
+						</p>';
 				echo '
-		<td class="windowbg2" valign="middle" width="22%">
-			<span class="smalltext">
-				', $board['last_post']['time'], '<br />
-				', $txt['in'], ' ', $board['last_post']['link'], '<br />
-				', $txt['by'], ' ', $board['last_post']['member']['link'], '
-			</span>
-		</td>
-	</tr>';
+					</td>
+				</tr>';
 			}
+		echo '
+			</tbody>';
 		}
 	}
-
-	// Show the "New Posts" and "No New Posts" legend.
-	if ($context['user']['is_logged'])
-	{
 		echo '
-	<tr class="titlebg">
-		<td colspan="2" align="left">
-			<img src="', $settings['lang_images_url'], '/new_some.gif" alt="', $txt['new_posts'], '" border="0" />&nbsp;&nbsp;<img src="' . $settings['lang_images_url'] . '/new_none.gif" alt="', $txt['old_posts'], '" border="0" />
-		</td>
-		<td colspan="3" align="right" class="smalltext">';
-		// Show the mark all as read button?
-		if ($settings['show_mark_read'])
-			echo '
-			<a href="', $scripturl, '?action=markasread;sa=all;' . $context['session_var'] . '=' . $context['session_id'] . '">', ($settings['use_image_buttons'] ? '<img src="' . $settings['lang_images_url'] . '/markread.gif" alt="' . $txt['mark_as_read'] . '" border="0" />' : $txt['mark_as_read']), '</a>';
-		echo '
-		</td>
-	</tr>';
-	}
+			<tbody class="titlebg">
+				<tr>
+					<td colspan="5">';
 
+					if ($context['user']['is_logged'])
+					{
+							echo '
+						<div id="posting_icons" class="floatleft">';
+
+							// Mark read button.
+							$mark_read_button = array(
+								'markread' => array('text' => 'mark_as_read', 'image' => 'markread.gif', 'lang' => true, 'url' => $scripturl . '?action=markasread;sa=all;' . $context['session_var'] . '=' . $context['session_id']),
+							);
+
+							echo '
+							<ul class="reset">
+								<li class="floatleft"><img src="', $settings['images_url'], '/', $context['theme_variant_url'], 'new_some.png" alt="" /> ', $txt['new_posts'], '</li>
+								<li class="floatleft"><img src="', $settings['images_url'], '/', $context['theme_variant_url'], 'new_none.png" alt="" /> ', $txt['old_posts'], '</li>
+								<li class="floatleft"><img src="', $settings['images_url'], '/', $context['theme_variant_url'], 'new_redirect.png" alt="" /> ', $txt['redirect_board'], '</li>
+							</ul>
+						</div>';
+
+							// Show the mark all as read button?
+							if ($settings['show_mark_read'] && !empty($context['categories']))
+								echo '<div class="mark_read">', template_button_strip($mark_read_button, 'right'), '</div>';
+					}
+					else
+					{
+							echo '
+						<div id="posting_icons" class="flow_hidden">
+							<ul class="reset">
+								<li class="floatleft"><img src="', $settings['images_url'], '/new_none.png" alt="" /> ', $txt['old_posts'], '</li>
+								<li class="floatleft"><img src="', $settings['images_url'], '/new_redirect.png" alt="" /> ', $txt['redirect_board'], '</li>
+							</ul>
+						</div>';
+					}
+					
+				echo '	
+					</td>
+				</tr>
+			</tbody>';	
 	echo '
-</table>';
+		</table>
+	</div><br />';
 
 	template_info_center();
 }
@@ -237,9 +296,7 @@ function template_info_center()
 
 	// Here's where the "Info Center" starts...
 	echo '
-<br />
-<br />
-<table border="0" width="100%" cellspacing="1" cellpadding="4" class="bordercolor">
+<table border="0" width="100%" cellspacing="1" cellpadding="4" class="table_border">
 	<tr class="titlebg">
 		<td align="center" colspan="2">', sprintf($txt['info_center_title'], $context['forum_name_html_safe']), '</td>
 	</tr>';
@@ -330,7 +387,7 @@ function template_info_center()
 				title, href, is_last, can_edit (are they allowed?), modify_href, and is_today. */
 			foreach ($context['calendar_events'] as $event)
 				echo '
-				', $event['can_edit'] ? '<a href="' . $event['modify_href'] . '" class="red">*</a> ' : '', $event['href'] == '' ? '' : '<a href="' . $event['href'] . '">', $event['is_today'] ? '<strong>' . $event['title'] . '</strong>' : $event['title'], $event['href'] == '' ? '' : '</a>', $event['is_last'] ? '<br />' : ', ';
+				', $event['can_edit'] ? '<a href="' . $event['modify_href'] . '" style="color: #FF0000;">*</a> ' : '', $event['href'] == '' ? '' : '<a href="' . $event['href'] . '">', $event['is_today'] ? '<strong>' . $event['title'] . '</strong>' : $event['title'], $event['href'] == '' ? '' : '</a>', $event['is_last'] ? '<br />' : ', ';
 
 			// Show a little help text to help them along ;).
 			if ($context['calendar_can_edit'])
@@ -474,7 +531,7 @@ function template_info_center()
 				<img src="', $settings['images_url'], '/icons/login.gif" alt="', $txt['login'], '" border="0" /></a>
 		</td>
 		<td class="windowbg2" valign="middle">
-			<form action="', $scripturl, '?action=login2" method="post" accept-charset="', $context['character_set'], '" class="login_bindex">
+			<form action="', $scripturl, '?action=login2" method="post" accept-charset="', $context['character_set'], '" style="margin: 0;">
 				<table border="0" cellpadding="2" cellspacing="0" align="center" width="100%"><tr>
 					<td valign="middle" align="left">
 						<label for="user"><strong>', $txt['username'], ':</strong><br /><input type="text" name="user" id="user" size="15" class="input_text" /></label>
@@ -499,6 +556,36 @@ function template_info_center()
 
 	echo '
 </table>';
-}
 
+	// Info center collapse object.
+	echo '
+	<script type="text/javascript"><!-- // --><![CDATA[
+		var oInfoCenterToggle = new smc_Toggle({
+			bToggleEnabled: true,
+			bCurrentlyCollapsed: ', empty($options['collapse_header_ic']) ? 'false' : 'true', ',
+			aSwappableContainers: [
+				\'upshrinkHeaderIC\'
+			],
+			aSwapImages: [
+				{
+					sId: \'upshrink_ic\',
+					srcExpanded: smf_images_url + \'/collapse.gif\',
+					altExpanded: ', JavaScriptEscape($txt['upshrink_description']), ',
+					srcCollapsed: smf_images_url + \'/expand.gif\',
+					altCollapsed: ', JavaScriptEscape($txt['upshrink_description']), '
+				}
+			],
+			oThemeOptions: {
+				bUseThemeSettings: ', $context['user']['is_guest'] ? 'false' : 'true', ',
+				sOptionName: \'collapse_header_ic\',
+				sSessionVar: ', JavaScriptEscape($context['session_var']), ',
+				sSessionId: ', JavaScriptEscape($context['session_id']), '
+			},
+			oCookieOptions: {
+				bUseCookie: ', $context['user']['is_guest'] ? 'true' : 'false', ',
+				sCookieName: \'upshrinkIC\'
+			}
+		});
+	// ]]></script>';
+}
 ?>
